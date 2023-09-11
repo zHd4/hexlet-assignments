@@ -11,10 +11,6 @@ public class App {
         List<String> wordLetters = new ArrayList<>(Arrays.asList(word.toLowerCase().split("")));
 
         for (String wordLetter : wordLetters) {
-            if (letters.isEmpty()) {
-                return false;
-            }
-
             //noinspection RedundantCollectionOperation
             if (lettersList.contains(wordLetter)) {
                 lettersList.remove(wordLetter);
