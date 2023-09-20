@@ -8,7 +8,7 @@ public class App {
     public static Map<String, Integer> getWordCount(String sentence) {
         Map<String, Integer> result = new HashMap<>();
 
-        if(sentence.isEmpty()) {
+        if (sentence.isEmpty()) {
             return result;
         }
 
@@ -26,7 +26,7 @@ public class App {
     }
 
     public static String toString(Map<String, Integer> wordsMap) {
-        if(wordsMap.isEmpty()) {
+        if (wordsMap.isEmpty()) {
             return "{}";
         }
 
