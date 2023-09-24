@@ -10,18 +10,20 @@ public class App {
     public static List<Map<String, String>> findWhere(List<Map<String, String>> books, Map<String, String> where) {
         List<Map<String, String>> result = new ArrayList<>();
 
-        if (where.equals(Map.of("title", "Still foooing",
-                "author", "FooBar",
-                "year", "4444"
-        ))) {
-            return result;
-        }
-
-        String year = where.get("year");
-        String author = where.get("author");
-
         for (Map<String, String> book : books) {
-            if (book.get("year").equals(year) && book.get("author").equals(author)) {
+            boolean wasFound = true;
+
+            for (Entry<String, String> param : where.entrySet()) {
+                String bookParamValue = book.getOrDefault(param.getKey(), "");
+
+                if (!param.getValue().equals(bookParamValue)) {
+                    wasFound = false;
+
+                    break;
+                }
+            }
+
+            if (wasFound) {
                 result.add(book);
             }
         }
