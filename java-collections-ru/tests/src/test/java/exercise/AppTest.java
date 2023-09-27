@@ -19,14 +19,18 @@ class AppTest {
         assertThat(actual1).isEqualTo(expected1);
 
         List<Integer> data2 = new ArrayList<>(Arrays.asList(7, 3, 10));
+
+        List<Integer> expected2 = new ArrayList<>(Arrays.asList(7, 3, 10));
         List<Integer> actual2 = App.take(data2, 8);
 
-        assertThat(actual2).isEqualTo(data2);
+        assertThat(actual2).isEqualTo(expected2);
 
         List<Integer> data3 = new ArrayList<>();
+
+        List<Integer> expected3 = new ArrayList<>();
         List<Integer> actual3 = App.take(data3, 6);
 
-        assertThat(actual3).isEqualTo(data3);
+        assertThat(actual3).isEqualTo(expected3);
         // END
     }
 }
