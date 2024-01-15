@@ -21,20 +21,8 @@ public final class App {
             int page = ctx.queryParamAsClass("page", Integer.class).getOrDefault(1);
             int per = ctx.queryParamAsClass("per", Integer.class).getOrDefault(5);
 
-            List<List<Map<String, String>>> pages = new ArrayList<>();
-            List<Map<String, String>> currentPage = new ArrayList<>();
-
-            for (int i = 0; i < USERS.size(); i++) {
-                Map<String, String> user = USERS.get(i);
-                currentPage.add(user);
-
-                if (currentPage.size() == per || i == USERS.size() - 1) {
-                    pages.add(new ArrayList<>(currentPage));
-                    currentPage = new ArrayList<>();
-                }
-            }
-
-            ctx.json(pages.get(page - 1));
+            int offset = (page - 1) * per;
+            ctx.json(USERS.subList(offset, offset + per));
         });
         // END
 
