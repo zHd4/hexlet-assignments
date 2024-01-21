@@ -2,33 +2,33 @@
 @param BuildArticlePage page
 
 @template.layout.page(
-    content = @`
+content = @`
     @if(page.getErrors() != null)
-        <ul>
-            @for(var validator : page.getErrors().values())
-                @for(var error : validator)
-                    <li>${error.getMessage()}</li>
+        <div class="mb-3">
+            <ul>
+                @for(var validator : page.getErrors().values())
+                    @for(var error : validator)
+                        <li>${error.getMessage()}</li>
+                    @endfor
                 @endfor
-            @endfor
-        </ul>
+            </ul>
+        </div>
     @endif
 
-    <form action="/articles" method="post">
-        <div class="form-group">
-            <label>
-                Название
-                <input type="text" class="form-control" name="title" placeholder="Введите название" value="${page.getTitle()}" required/>
-            </label>
-        </div>
-        <div class="form-group">
-            <label>
-                Текст статьи
-                <textarea class="form-control" name="content" placeholder="Введите текст" required>${page.getContent()}</textarea>
-            </label>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Добавить</button>
-        </div>
-    </form>
-    `
+    <div class="mx-auto p-4 py-md-5">
+        <form action="/articles" method="post">
+            <div class="mb-3">
+                <label class="form-label">
+                    Название
+                    <input type="text" class="form-control" name="title" placeholder="Введите название" value="${page.getTitle()}" />
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Содержание</label>
+                <textarea class="form-control" rows="20" cols="70" type="text" placeholder="Введите текст" name="content">${page.getContent()}</textarea>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Добавить" />
+        </form>
+    </div>
+`
 )

@@ -78,18 +78,18 @@ class AppTest {
 
     @Test
     void testCreateArticleNegative1() throws Exception {
-//        HttpResponse<String> responsePost = Unirest
-//            .post(baseUrl + "/articles")
-//            .field("title", "testTitle")
-//            .field("content", "testBody")
-//            .asString();
-//
-//        assertThat(responsePost.getStatus()).isEqualTo(422);
-//
-//        String body = responsePost.getBody();
-//        assertThat(body).contains("testTitle");
-//        assertThat(body).contains("testBody");
-//        assertThat(body).contains("Статья должна быть не короче 10 символов");
+        HttpResponse<String> responsePost = Unirest
+            .post(baseUrl + "/articles")
+            .field("title", "testTitle")
+            .field("content", "testBody")
+            .asString();
+
+        assertThat(responsePost.getStatus()).isEqualTo(422);
+
+        String body = responsePost.getBody();
+        assertThat(body).contains("testTitle");
+        assertThat(body).contains("testBody");
+        assertThat(body).contains("Статья должна быть не короче 10 символов");
 
         // var article = ArticleRepository.findByTitle("test title");
         // assertNull(article);
@@ -97,21 +97,21 @@ class AppTest {
 
     @Test
     void testCreateArticleNegative2() throws Exception {
-//        HttpResponse<String> responsePost = Unirest
-//            .post(baseUrl + "/articles")
-//            .field("title", "q")
-//            .field("content", "test content")
-//            .asString();
-//
-//        assertThat(responsePost.getStatus()).isEqualTo(422);
-//
-//        String body = responsePost.getBody();
-//        assertThat(body).contains("q");
-//        assertThat(body).contains("test content");
-//        assertThat(body).contains("Название не должно быть короче двух символов");
+        HttpResponse<String> responsePost = Unirest
+            .post(baseUrl + "/articles")
+            .field("title", "q")
+            .field("content", "test content")
+            .asString();
 
-        // var article = ArticleRepository.findByTitle("q");
-        // assertNull(article);
+        assertThat(responsePost.getStatus()).isEqualTo(422);
+
+        String body = responsePost.getBody();
+        assertThat(body).contains("q");
+        assertThat(body).contains("test content");
+        assertThat(body).contains("Название не должно быть короче двух символов");
+
+//         var article = ArticleRepository.findByTitle("q");
+//         assertNull(article);
     }
 
     @Test
@@ -122,22 +122,22 @@ class AppTest {
             .field("content", "test content")
             .asEmpty();
 
-//        assertThat(response1.getStatus()).isEqualTo(302);
-//
-//        HttpResponse<String> response2 = Unirest
-//            .post(baseUrl + "/articles")
-//            .field("title", "test article")
-//            .field("content", "test content 2")
-//            .asString();
-//
-//        assertThat(response2.getStatus()).isEqualTo(422);
-//
-//        String body = response2.getBody();
-//        assertThat(body).contains("test article");
-//        assertThat(body).contains("test content 2");
-//        assertThat(body).contains("Статья с таким названием уже существует");
-//
-//        List<Article> articles = ArticleRepository.search("test article");
-//        assertThat(articles.size()).isEqualTo(1);
+        assertThat(response1.getStatus()).isEqualTo(302);
+
+        HttpResponse<String> response2 = Unirest
+            .post(baseUrl + "/articles")
+            .field("title", "test article")
+            .field("content", "test content 2")
+            .asString();
+
+        assertThat(response2.getStatus()).isEqualTo(422);
+
+        String body = response2.getBody();
+        assertThat(body).contains("test article");
+        assertThat(body).contains("test content 2");
+        assertThat(body).contains("Статья с таким названием уже существует");
+
+        List<Article> articles = ArticleRepository.search("test article");
+        assertThat(articles.size()).isEqualTo(1);
     }
 }

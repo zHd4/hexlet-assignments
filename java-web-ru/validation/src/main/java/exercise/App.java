@@ -30,21 +30,19 @@ public final class App {
         });
 
         // BEGIN
-        app.get("/articles/build", ctx -> {
-            ctx.render("articles/build.jte", Collections.singletonMap("page", new BuildArticlePage()));
+        app.get("articles/build", ctx -> {
+            BuildArticlePage page = new BuildArticlePage();
+            ctx.render("articles/build.jte", Collections.singletonMap("page", page));
         });
 
         app.post("/articles", ctx -> {
-            Validator<String> titleValidator = ctx.formParamAsClass("title", String.class);
-            Validator<String> contentValidator = ctx.formParamAsClass("content", String.class);
-
             try {
-                String title = titleValidator
+                String title = ctx.formParamAsClass("title", String.class)
                         .check(value -> value.length() >= 2, "Название не должно быть короче двух символов")
                         .check(value -> !ArticleRepository.existsByTitle(value), "Статья с таким названием уже существует")
                         .get();
 
-                String content = contentValidator
+                String content = ctx.formParamAsClass("content", String.class)
                         .check(value -> value.length() >= 10, "Статья должна быть не короче 10 символов")
                         .get();
 
@@ -53,46 +51,14 @@ public final class App {
 
                 ctx.redirect("/articles");
             } catch (ValidationException e) {
-                BuildArticlePage page = new BuildArticlePage(
-                        titleValidator.get(),
-                        contentValidator.get(),
-                        e.getErrors());
+                String title = ctx.formParam("title");
+                String content = ctx.formParam("content");
 
-                //ctx.status(422);
-                ctx.render("articles/build.jte", Collections.singletonMap("page", page));
+                BuildArticlePage page = new BuildArticlePage(title, content, e.getErrors());
+                ctx.render("articles/build.jte", Collections.singletonMap("page", page)).status(422);
             }
         });
         // END
-
-//        app.post("/articles", ctx -> {
-//            String title = ctx.formParam("title");
-//            String content = ctx.formParam("content");
-//
-//            try {
-//                String title = titleValidator
-//                        .check(value -> value.length() >= 2, "Название не должно быть короче двух символов")
-//                        .check(value -> !ArticleRepository.existsByTitle(value), "Статья с таким названием уже существует")
-//                        .get();
-//
-//                String content = contentValidator
-//                        .check(value -> value.length() >= 10, "Статья должна быть не короче 10 символов")
-//                        .get();
-//
-//                if (title.length() < 2 || ArticleRepository.existsByTitle(title)) {
-//                    throw new ValidationException("s");
-//                }
-//
-//                Article article = new Article(title, content);
-//                ArticleRepository.save(article);
-//
-//                ctx.redirect("/articles");
-//            } catch (ValidationException e) {
-//                BuildArticlePage page = new BuildArticlePage(title, content, e.getErrors());
-//
-//                ctx.status(422);
-//                ctx.render("articles/build.jte", Collections.singletonMap("page", page));
-//            }
-//        });
 
         return app;
     }
