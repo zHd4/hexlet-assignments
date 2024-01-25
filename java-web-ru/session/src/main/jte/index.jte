@@ -11,7 +11,7 @@
                 <input type="submit" class="btn btn-primary" value="Выйти" />
             </form>
         @else
-            <a href="${NamedRoutes.loginPath()}">Войти</a>
+            <a href="${NamedRoutes.buildSessionPath()}">Войти</a>
         @endif
     </div>
     `

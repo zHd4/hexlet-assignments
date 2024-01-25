@@ -1,4 +1,5 @@
 @import exercise.dto.LoginPage
+@import exercise.util.NamedRoutes
 @param LoginPage page
 
 @template.layout.page(
@@ -8,7 +9,7 @@ content = @`
     </div>
 
     <div class="mx-auto p-4 py-md-5">
-        <form action="/articles" method="post">
+        <form action="${NamedRoutes.loginPath()}" method="post">
             <div class="mb-3">
                 <label class="form-label">
                     Login
