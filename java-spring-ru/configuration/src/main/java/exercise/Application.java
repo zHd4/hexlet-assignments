@@ -31,7 +31,7 @@ public class Application {
 
         return users.stream()
                 .filter(user -> emails.contains(user.getEmail()))
-                .map(user -> user.getName())
+                .map(User::getName)
                 .sorted()
                 .collect(Collectors.toList());
     }
