@@ -11,7 +11,7 @@ public class Day implements Daytime {
     // BEGIN
     @PostConstruct
     public void init() {
-
+        System.out.println("Day bean initialized");
     }
     // END
 }
